@@ -66,7 +66,7 @@ class GameScene extends Phaser.Scene {
     this.physics.add.overlap(gameState.player, gameState.enemy, () => {
       // Executes code to end to game when Codey and the snowman overlap
       
-      this.add.text(150, 50, '      Game Over...\n  Click to play again.', { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
+      this.add.text(350, 50, '      Game Over...\n  Click to play again.', { fontFamily: 'Arial', fontSize: 36, color: '#ffffff' });
       this.physics.pause();
       gameState.active = false;
       this.anims.pauseAll();
