@@ -179,6 +179,11 @@ class Level extends Phaser.Scene {
             this.scene.restart(this.levelKey);
           }
         });
+        this.scene.start('StartScene');
+			  this.scene.stop('Level1');
+        this.scene.stop('Level2');
+        this.scene.stop('Level3');
+        this.scene.stop('Level4');
       }
     }
   }
@@ -252,6 +257,22 @@ class Level extends Phaser.Scene {
     return
   }
 }
+//This is the start page:
+ class StartScene extends Phaser.Scene {
+	constructor() {
+		super({ key: 'StartScene' })
+	}
+
+	create() {
+    
+		this.add.text( 150, 250, 'Click to start!', {fill: '#000000', fontSize: '20px'})
+    this.add.text( 100, 150, 'Play with < , ^ , > , space', {fill: '#000000', fontSize: '20px'})
+		this.input.on('pointerdown', () => {
+			this.scene.stop('StartScene')
+			this.scene.start('Level1');
+		})
+	}
+};
 
 class Level1 extends Level {
   constructor() {
@@ -296,7 +317,10 @@ class Credits extends Phaser.Scene {
 
   create() {
     gameState.player = this.add.sprite(config.width / 2, config.height / 2, 'codey_sled');
-
+    this.input.on('pointerdown', () => {
+			this.scene.start('StartScene')
+			this.scene.stop('Credits');
+		})
     this.anims.create({
       key: 'sled',
       frames: this.anims.generateFrameNumbers('codey_sled'),
@@ -331,7 +355,7 @@ const config = {
 
     }
   },
-  scene: [Level1, Level2, Level3, Level4, Credits]
+  scene: [StartScene, Level1, Level2, Level3, Level4, Credits]
 };
 
 const game = new Phaser.Game(config);
